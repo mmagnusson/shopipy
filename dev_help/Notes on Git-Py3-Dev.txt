@@ -1,0 +1,120 @@
+Title: Notes on Git-Py3-Dev
+Date: 01-13-2015, 11:13:11 MTM
+Author: MTM
+
+GIT:
+*Everything stored in git is in a file -> similar to Linux, because created by Linus?
+*branches and tags are simply files containing (basically) a SHA-1 hash which points to the commit.
+
+*Merge conflicts -> "By now I’m sure you have had a merge conflict and had to resolve it. This is normally done by editing the file, removing the <<<<, ====, >>>> markers and the keeping the code you want to store."
+
+REMOTE SERVERS:
+add remote server:
+$ git remote add john git@github.com:johnsomeone/someproject.git
+
+# shows URLs of each remote server
+$ git remote -v 
+
+# gives more details about each
+$ git remote show name 
+
+
+TAGGING:
+
+
+CREATING BRANCHES:
+	*when, why?
+Long way:
+$ git branch feature132
+$ git checkout feature132
+Short way:
+$ git checkout -b feature132
+
+Renaming local branch
+	$ git checkout -b twitter-experiment feature132
+	$ git branch -d feature132
+
+
+MERGING BRANCHES:
+	$ git checkout master
+	$ git merge feature83 # Or...
+	$ git rebase feature83
+Difference between merge and rebase:
+	The difference between merge and rebase is that merge tries to resolve the changes and create a new commit that blends them. Rebase tries to take your changes since you last diverged from the other branch and replay them from the HEAD of the other branch. However, don’t rebase after you’ve pushed a branch to a remote server – this can cause confusion/problems.  -> ??
+
+How to show which branches are merged into current branch
+	# Shows branches that are all merged in to your current branch
+	$ git branch --merged
+
+	# Shows branches that are not merged in to your current branch
+	$ git branch --no-merged
+
+
+REMOTE BRANCHES:
+Local branch to remote server -> Push it up
+	$ git push origin twitter-experiment:refs/heads/twitter-experiment
+	# Where origin is our server name and twitter-experiment is the branch
+
+Delete branch from server:
+	$ git push origin :twitter-experiment 
+	#note the colon before branch name
+Show the state of all remote branches
+	$ git remote show origin
+
+Remove branches that used to exist on server but now don't (?)
+	$ git remote prune
+
+Remote branch that you want to track locally
+	$ git branch --track myfeature origin/myfeature
+	$ git checkout myfeature
+
+New git does automatically if -b used at checkout
+	$ git checkout -b myfeature origin/myfeature
+
+
+ADDING INTERACTIVELY:
+To commit certain files or parts of files you need to go in to interactive mode
+	$ git add -i
+
+LOGGING:
+Viewing a log
+	$ git log -p
+Summary of what changed	
+	$ git log --stat
+Searching for author
+	$ git log --author=Mike
+Search term:
+	$ git log --grep="search string"
+
+
+SELECTING REVISIONS TO VIEW/CHANGE:
+	$ git show 12a86bc38 # By revision
+	$ git show v1.0.1 # By tag
+	$ git show feature132 # By branch name
+	$ git show 12a86bc38^ # Parent of a commit
+	$ git show 12a86bc38~2 # Grandparent of a commit
+	$ git show feature132@{yesterday} # Time relative
+	$ git show feature132@{2.hours.ago} # Time relative
+
+SELECTING A RANGE: -? 
+
+RESETTING CHANGES:
+
+COMMITTING TO WRONG BRANCH:
+
+	$ git branch experimental   # Creates a pointer to the current master state
+	$ git reset --hard master~3 # Moves the master branch pointer back to 3 revisions ago
+	$ git checkout experimental
+
+BRANCH NAMING
+FINDING WHO DID A COMMIT:
+	$ git blame FILE
+git DATABASE MAINTENANCE:
+
+
+
+git stash -> why use?
+
+
+------------------------------------
+Python3:
